@@ -1,0 +1,7 @@
+### 测试地理数据 API
+
+# 基础URL
+@baseUrl = http://localhost:8000
+
+### 获取 2025 年的所有地理数据
+GET {{baseUrl}}/geo/meta/2025
