@@ -1,0 +1,25 @@
+### 测试地理数据 API
+
+# 基础URL
+@baseUrl = http://localhost:8000
+
+### 获取地理数据 by default year
+GET {{baseUrl}}/geo/meta
+
+### 获取 2020 年的所有地理数据
+GET {{baseUrl}}/geo/meta?year=2020
+
+### 获取所有指标数据
+GET {{baseUrl}}/metrics/meta
+
+### 获取某一指标在所有地区的数据
+GET {{baseUrl}}/metrics/dataByKey?adLevel=1&key=t1&year=2020
+
+### 获取某地区的部分指标数据
+GET {{baseUrl}}/metrics/dataByGb?gb=410000&year=2020&keys=t1,t2,t3
+
+### 获取某地区的所有指标数据
+GET {{baseUrl}}/metrics/dataByGb?gb=410000&year=2020
+
+### 获取 metrics 数据视图
+GET {{baseUrl}}/metrics/dataView?year=2020&keys=t1,t2,t3&sortKey=gb&order=asc&offset=0&limit=100

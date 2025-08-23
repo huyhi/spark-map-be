@@ -1,0 +1,28 @@
+{
+    "typescript.preferences.includePackageJsonAutoImports": "on",
+    "typescript.suggest.autoImports": true,
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "eslint.validate": [
+        "typescript"
+    ],
+    "files.associations": {
+        "*.http": "http"
+    },
+    "http-client.environmentVariables": {
+        "development": {
+            "baseUrl": "http://localhost:3000"
+        },
+        "test": {
+            "baseUrl": "http://localhost:3001"
+        }
+    },
+    "debug.console.fontSize": 14,
+    "debug.console.lineHeight": 20,
+    "debug.inlineValues": true,
+    "debug.showBreakpointsInOverviewRuler": true,
+    "debug.showInlineBreakpointCandidates": true
+}

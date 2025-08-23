@@ -8,6 +8,7 @@ import {
 
 @Entity('geo_meta')
 export class GeoMeta {
+
   @PrimaryGeneratedColumn()
   id: number
 
@@ -37,4 +38,13 @@ export class GeoMeta {
 
   @UpdateDateColumn()
   updatedAt: Date
+}
+
+export interface GeoMetaViewQuery {
+  year: number
+  keys: string[]
+  sortKey: string
+  order: 'asc' | 'desc'
+  offset: number
+  limit: number
 }

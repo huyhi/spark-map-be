@@ -15,6 +15,6 @@ import { GeoMeta } from './entities/geo-meta.entity'
   ],
   controllers: [GeoController],
   providers: [GeoService],
-  exports: [GeoService],
+  exports: [GeoService, TypeOrmModule],
 })
-export class GeoMetricsModule { }
+export class GeoModule { }

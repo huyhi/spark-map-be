@@ -2,7 +2,8 @@ import { Module } from '@nestjs/common'
 import { APP_INTERCEPTOR, APP_FILTER } from '@nestjs/core'
 import { AppController } from './app.controller'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { GeoMetricsModule } from './geo/geo.module'
+import { GeoModule } from './geo/geo.module'
+import { MetricsModule } from './metrics/metrics.module'
 import { ResponseInterceptor, HttpExceptionFilter } from './common'
 
 @Module({
@@ -13,7 +14,8 @@ import { ResponseInterceptor, HttpExceptionFilter } from './common'
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: false,
     }),
-    GeoMetricsModule,
+    GeoModule,
+    MetricsModule,
   ],
   controllers: [AppController],
   providers: [
