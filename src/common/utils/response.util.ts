@@ -15,6 +15,15 @@ export class Resp {
     }
   }
 
+  static successWithTotal<T>(data: T, total: number, msg = ''): ApiResponse<T> {
+    return {
+      success: true,
+      data,
+      total,
+      msg
+    }
+  }
+
   /**
    * 创建失败响应
    * @param msg 错误消息

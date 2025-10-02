@@ -5,7 +5,6 @@ import {
 } from '@nestjs/common'
 import { MetricsService } from './metrics.service'
 import { Resp } from '../common'
-import { MetricsResp, SingleMetricsResp } from './entities/metrics.resp'
 import { GeoMetaViewQuery } from '../geo/entities/geo-meta.entity'
 import { GeoService } from '../geo/geo.service'
 
@@ -32,12 +31,12 @@ export class MetricsController {
     @Query('sortKey') sortKey?: string,
     @Query('order') order: 'asc' | 'desc' = 'asc',
     @Query('offset') offset: number = 0,
-    @Query('limit') limit: number = 100,
+    @Query('limit') limit: number = 5000,
   ) {
     if (offset < 0) {
       return Resp.error('offset must be greater than or equal to 0')
     }
-    if (limit <= 0 || limit > 100) {
+    if (limit <= 0 || limit > 5000) {
       return Resp.error('limit must be greater than 0 and less than or equal to 100')
     }
 
@@ -54,16 +53,18 @@ export class MetricsController {
     return Resp.success(this.metricsService.map2MetricsResp(data))
   }
 
-  @Get('dataByKey')
+  @Get('dataByAdLevel')
   async findMetricsDataByKey(
-    @Query('level') level: number,
-    @Query('key') key: string,
+    @Query('adLevel') level: number,
+    @Query('keys') keys: string,
     @Query('year') year: number,
   ) {
     // find all gbs by adLevel
     const gbs = await this.geoService.findGbsByAdLevel(level, year)
-    const data = await this.metricsService.findMetricsDataByGb(gbs, year, [key])
-    return Resp.success(data)
+
+    const keysArray = keys ? keys.split(',') : []
+    const data = await this.metricsService.findMetricsDataByGb(gbs, year, keysArray)
+    return Resp.success(this.metricsService.map2MetricsResp(data))
   }
 
   @Get('dataByGb')

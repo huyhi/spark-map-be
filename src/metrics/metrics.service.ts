@@ -6,7 +6,7 @@ import { DataType } from 'src/constant/enum'
 import { GeoMeta, GeoMetaViewQuery } from '../geo/entities/geo-meta.entity'
 import { GeoService } from '../geo/geo.service'
 import { MetricsDataWithGeoMeta } from './entities/metrics.biz'
-import { MetricsResp, SingleMetricsResp } from './entities/metrics.resp'
+import { SingleMetricsResp } from './entities/metrics.resp'
 
 @Injectable()
 export class MetricsService {
@@ -67,9 +67,7 @@ export class MetricsService {
     }
   }
 
-  map2MetricsResp(
-    data: MetricsDataWithGeoMeta,
-  ): MetricsResp {
+  map2MetricsResp(data: MetricsDataWithGeoMeta): SingleMetricsResp[] {
     let { geoMeta, metricsData } = data
 
     // convert geoMeta to map, key is gb, value is geoMeta
@@ -105,9 +103,6 @@ export class MetricsService {
       })
     }
 
-    return {
-      data: respList,
-      total: respList.length,
-    }
+    return respList
   }
 }

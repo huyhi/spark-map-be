@@ -13,6 +13,18 @@ export class GeoService {
     @Inject(CACHE_MANAGER) private cacheManager: Cache
   ) { }
 
+
+  async getGeoMetaByAdLevel(year: number, adLevel: number): Promise<GeoMeta[]> {
+    const data = await this.geoMetaRepository.find({
+      select: ['id', 'name', 'gb', 'level', 'year', 'lat', 'lng', 'geojson'],
+      where: {
+        level: adLevel,
+        year: year
+      }
+    })
+    return data
+  }
+
   /**
    * 根据年份读取数据（带缓存）
    * @param year 年份
@@ -38,11 +50,8 @@ export class GeoService {
     return data
   }
 
-  async findGeoMetaByGbs(gbs: number[], year: number, light: boolean = true): Promise<GeoMeta[]> {
-    let selectedFields = ['gb', 'year', 'name']
-    if (!light) {
-      selectedFields.push('level', 'lat', 'lng', 'geojson')
-    }
+  async findGeoMetaByGbs(gbs: number[], year: number): Promise<GeoMeta[]> {
+    let selectedFields = ['id', 'name', 'gb', 'level', 'year']
 
     const data = await this.geoMetaRepository.find({
       select: selectedFields as FindOptionsSelect<GeoMeta>,
@@ -83,5 +92,29 @@ export class GeoService {
     })
 
     return gbList.map(item => item.gb)
+  }
+
+  /**
+   * 将多个 GeoMeta 对象中的 geojson 合并为一个 FeatureCollection
+   * @param geoMetaList GeoMeta 对象数组
+   * @returns 合并后的 FeatureCollection
+   */
+  mergeToFeatureCollection(geoMetaList: GeoMeta[]): any {
+    return {
+      type: 'FeatureCollection',
+      features: geoMetaList.map(geoMeta => ({
+        type: 'Feature',
+        properties: {
+          id: geoMeta.id,
+          name: geoMeta.name,
+          gb: geoMeta.gb,
+          level: geoMeta.level,
+          year: geoMeta.year,
+          lat: geoMeta.lat,
+          lng: geoMeta.lng,
+        },
+        geometry: JSON.parse(geoMeta.geojson)
+      }))
+    }
   }
 }

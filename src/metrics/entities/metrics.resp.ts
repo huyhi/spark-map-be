@@ -1,14 +1,10 @@
 export interface SingleMetricsResp {
   meta?: {
+    id: number
     gb: number
     name: string
+    level: number
+    year: number
   }
-  metrics: {
-    [key: string]: number
-  }
-}
-
-export interface MetricsResp {
-  data: SingleMetricsResp[]
-  total: number
+  metrics: Record<string, number>
 }
