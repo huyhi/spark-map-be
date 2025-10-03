@@ -1,7 +1,7 @@
 ### 测试地理数据 API
 
 # 基础URL
-@baseUrl = http://localhost:8000
+@baseUrl = http://localhost:8000/api
 
 ### 获取地理数据 by default year
 GET {{baseUrl}}/geo/meta
@@ -29,3 +29,6 @@ GET {{baseUrl}}/metrics/dataByGb?gb=410000&year=2020&keys=t1,t2,t3
 
 ### 获取某地区的所有指标数据
 GET {{baseUrl}}/metrics/dataByGb?gb=410000&year=2020
+
+### poi related below
+GET {{baseUrl}}/poi/dataView

@@ -8,7 +8,7 @@ import { Resp } from '../common'
 import { GeoMetaViewQuery } from '../geo/entities/geo-meta.entity'
 import { GeoService } from '../geo/geo.service'
 
-@Controller('metrics')
+@Controller('api/metrics')
 export class MetricsController {
 
   constructor(

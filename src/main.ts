@@ -6,7 +6,7 @@ async function bootstrap() {
 
   // Enable CORS for cross-origin requests
   app.enableCors({
-    origin: ['http://localhost:3000'],
+    origin: ['*'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true,
   })

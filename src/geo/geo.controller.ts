@@ -8,7 +8,7 @@ import {
 } from './geo.service'
 import { Resp } from '../common'
 
-@Controller('geo')
+@Controller('api/geo')
 export class GeoController {
   constructor(private readonly geoService: GeoService) { }
 

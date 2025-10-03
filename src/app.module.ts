@@ -4,6 +4,7 @@ import { AppController } from './app.controller'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { GeoModule } from './geo/geo.module'
 import { MetricsModule } from './metrics/metrics.module'
+import { PoiModule } from './poi/poi.module'
 import { ResponseInterceptor, HttpExceptionFilter } from './common'
 
 @Module({
@@ -16,6 +17,7 @@ import { ResponseInterceptor, HttpExceptionFilter } from './common'
     }),
     GeoModule,
     MetricsModule,
+    PoiModule,
   ],
   controllers: [AppController],
   providers: [
