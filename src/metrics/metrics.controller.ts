@@ -60,7 +60,7 @@ export class MetricsController {
     @Query('year') year: number,
   ) {
     // find all gbs by adLevel
-    const gbs = await this.geoService.findGbsByAdLevel(level, year)
+    const gbs = await this.geoService.findGbsByAdLevel(level)
 
     const keysArray = keys ? keys.split(',') : []
     const data = await this.metricsService.findMetricsDataByGb(gbs, year, keysArray)

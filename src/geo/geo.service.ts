@@ -50,14 +50,13 @@ export class GeoService {
     return data
   }
 
-  async findGeoMetaByGbs(gbs: number[], year: number): Promise<GeoMeta[]> {
+  async findGeoMetaByGbs(gbs: number[]): Promise<GeoMeta[]> {
     let selectedFields = ['id', 'name', 'gb', 'level', 'year']
 
     const data = await this.geoMetaRepository.find({
       select: selectedFields as FindOptionsSelect<GeoMeta>,
       where: {
         gb: In(gbs),
-        year,
       }
     })
 
@@ -66,12 +65,11 @@ export class GeoService {
     return data
   }
 
-  async findGbsByAdLevel(level: number, year: number): Promise<number[]> {
+  async findGbsByAdLevel(level: number): Promise<number[]> {
     const data = await this.geoMetaRepository.find({
       select: ['gb', 'level'],
       where: {
         level,
-        year,
       }
     })
 

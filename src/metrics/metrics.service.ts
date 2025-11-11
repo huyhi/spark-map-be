@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { FindManyOptions, FindOptionsSelect, FindOptionsWhere, In, Repository } from 'typeorm'
 import { MetricsData, MetricsMeta } from './entities/metrics.entity'
-import { DataType } from 'src/constant/enum'
+import { DataType, DEFAULT_YEAR } from 'src/constant/enum'
 import { GeoMeta, GeoMetaViewQuery } from '../geo/entities/geo-meta.entity'
 import { GeoService } from '../geo/geo.service'
 import { MetricsDataWithGeoMeta } from './entities/metrics.biz'
@@ -22,10 +22,13 @@ export class MetricsService {
   async findMetricsMeta(year: number): Promise<MetricsMeta[]> {
     return this.metricsMetaRepository.find(
       {
-        select: ['key', 'realName', 'maxVal', 'minVal'],
+        select: ['key', 'realName', 'datatype', 'maxVal', 'minVal'],
         where: {
-          datatype: DataType.NUM,
+          datatype: In([DataType.NUM, DataType.PERCENT]),
           year,
+        },
+        order: {
+          key: 'asc',
         },
       }
     )
@@ -58,7 +61,12 @@ export class MetricsService {
     }
 
     // query geo meta by gbs 
-    const geoMeta = await this.geoService.findGeoMetaByGbs(gbs, year)
+    const geoMeta = await this.geoService.findGeoMetaByGbs(gbs)
+    // temp work around, set year to year, since only DEFAULT_YEAR (2020) data is available
+    for (const item of geoMeta) {
+      item.year = year
+    }
+
     const metricsData = await this.metricsDataRepository.find(metricsDataQuery)
 
     return {

@@ -19,13 +19,13 @@ GET {{baseUrl}}/geo/meta?year=2020&adLevel=2
 GET {{baseUrl}}/metrics/meta
 
 ### 获取某一指标在所有地区的数据
-GET {{baseUrl}}/metrics/dataByAdLevel?adLevel=3&keys=t1&year=2020
+GET {{baseUrl}}/metrics/dataByAdLevel?adLevel=1&keys=t7&year=1019
 
 ### 获取 metrics 数据视图
 GET {{baseUrl}}/metrics/dataView?year=2020&keys=&sortKey=&order=asc
 
 ### 获取某地区的部分指标数据
-GET {{baseUrl}}/metrics/dataByGb?gb=410000&year=2020&keys=t1,t2,t3
+GET {{baseUrl}}/metrics/dataByGb?gb=410000&year=2017&keys=t7
 
 ### 获取某地区的所有指标数据
 GET {{baseUrl}}/metrics/dataByGb?gb=410000&year=2020
