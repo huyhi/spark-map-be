@@ -37,10 +37,10 @@ export class MetricsService {
   async findMetricsDataView(query: GeoMetaViewQuery): Promise<MetricsDataWithGeoMeta> {
     // query gb from metrics_meta
     const gbList = await this.geoService.queryGbs(query)
-    return this.findMetricsDataByGb(gbList, query.year, query.keys)
+    return this.findMetricsDataByGb(gbList, [], query.year, query.keys)
   }
 
-  async findMetricsDataByGb(gbs: number[], year: number, keys: string[]): Promise<MetricsDataWithGeoMeta> {
+  async findMetricsDataByGb(gbs: number[], adLevel: number[], year: number, keys: string[]): Promise<MetricsDataWithGeoMeta> {
     if (gbs.length === 0) {
       return {
         geoMeta: [],
@@ -61,7 +61,7 @@ export class MetricsService {
     }
 
     // query geo meta by gbs 
-    const geoMeta = await this.geoService.findGeoMetaByGbs(gbs)
+    const geoMeta = await this.geoService.findGeoMetaByGbs(gbs, adLevel)
     // temp work around, set year to year, since only DEFAULT_YEAR (2020) data is available
     for (const item of geoMeta) {
       item.year = year

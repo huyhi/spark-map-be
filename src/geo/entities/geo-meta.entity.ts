@@ -15,6 +15,9 @@ export class GeoMeta {
   @Column('text')
   name: string
 
+  @Column('text', { default: '' })
+  nameAlias: string
+
   @Column('integer')
   gb: number
 

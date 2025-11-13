@@ -16,7 +16,7 @@ export class GeoService {
 
   async getGeoMetaByAdLevel(year: number, adLevel: number): Promise<GeoMeta[]> {
     const data = await this.geoMetaRepository.find({
-      select: ['id', 'name', 'gb', 'level', 'year', 'lat', 'lng', 'geojson'],
+      select: ['id', 'name', 'nameAlias', 'gb', 'level', 'year', 'lat', 'lng', 'geojson'],
       where: {
         level: adLevel,
         year: year
@@ -40,7 +40,7 @@ export class GeoService {
     }
 
     const data = await this.geoMetaRepository.find({
-      select: ['name', 'gb', 'level', 'year', 'lat', 'lng', 'geojson'],
+      select: ['name', 'nameAlias', 'gb', 'level', 'year', 'lat', 'lng', 'geojson'],
       where: {
         year: year
       }
@@ -50,14 +50,20 @@ export class GeoService {
     return data
   }
 
-  async findGeoMetaByGbs(gbs: number[]): Promise<GeoMeta[]> {
-    let selectedFields = ['id', 'name', 'gb', 'level', 'year']
+  async findGeoMetaByGbs(gbs: number[], adLevel: number[]): Promise<GeoMeta[]> {
+    let selectedFields = ['id', 'name', 'nameAlias', 'gb', 'level', 'year']
+
+    const whereCondition: any = {
+      gb: In(gbs),
+    }
+
+    if (adLevel && adLevel.length > 0) {
+      whereCondition.level = In(adLevel)
+    }
 
     const data = await this.geoMetaRepository.find({
       select: selectedFields as FindOptionsSelect<GeoMeta>,
-      where: {
-        gb: In(gbs),
-      }
+      where: whereCondition
     })
 
     // sort by gb, make data sequence same as gbs
@@ -105,6 +111,7 @@ export class GeoService {
         properties: {
           id: geoMeta.id,
           name: geoMeta.name,
+          nameAlias: geoMeta.nameAlias,
           gb: geoMeta.gb,
           level: geoMeta.level,
           year: geoMeta.year,

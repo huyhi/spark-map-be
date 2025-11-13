@@ -63,7 +63,7 @@ export class MetricsController {
     const gbs = await this.geoService.findGbsByAdLevel(level)
 
     const keysArray = keys ? keys.split(',') : []
-    const data = await this.metricsService.findMetricsDataByGb(gbs, year, keysArray)
+    const data = await this.metricsService.findMetricsDataByGb(gbs, [level], year, keysArray)
     return Resp.success(this.metricsService.map2MetricsResp(data))
   }
 
@@ -74,7 +74,7 @@ export class MetricsController {
     @Query('year') year: number,
   ) {
     const keysArray = keys ? keys.split(',') : []
-    const data = await this.metricsService.findMetricsDataByGb([gb], year, keysArray)
+    const data = await this.metricsService.findMetricsDataByGb([gb], [], year, keysArray)
     return Resp.success(this.metricsService.map2MetricsResp(data))
   }
 } 
