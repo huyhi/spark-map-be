@@ -1,0 +1,29 @@
+@baseUrl = http://localhost:8000
+
+### Chat - First message (creates new session)
+POST {{baseUrl}}/api/chat
+Content-Type: application/json
+
+{
+  "message": "Hello! Can you tell me about SparkMap?"
+}
+
+### Chat - Continue conversation with session ID
+POST {{baseUrl}}/api/chat
+Content-Type: application/json
+
+{
+  "message": "What kind of data can I find here?",
+  "sessionId": "session_1234567890_abc123"
+}
+
+### Chat - Ask about POI
+POST {{baseUrl}}/api/chat
+Content-Type: application/json
+
+{
+  "message": "How do I search for points of interest?"
+}
+
+### Clear session
+DELETE {{baseUrl}}/api/chat/session/session_1234567890_abc123

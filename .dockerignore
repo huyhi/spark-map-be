@@ -1,0 +1,27 @@
+# Node.js 忽略
+node_modules
+npm-debug.log
+yarn-error.log
+
+# NestJS 构建目录（因为我们用多阶段构建，会自己拷贝 dist）
+dist
+
+# 环境配置
+.env
+.env.local
+.env.*.local
+
+# Git 文件
+.git
+.gitignore
+
+# Docker 文件本身不会需要
+Dockerfile
+docker-compose.yml
+
+# IDE 和系统文件
+.vscode
+.idea
+*.swp
+*.swo
+.DS_Store
